@@ -4,13 +4,27 @@ const {
 
 export default function () {
   // Use ipcRenderer.on
+  // ipcRenderer.on('@keepkey/state', (_event, message) => {
+  //   const oDiv = document.getElementById('nodejs-api');
+  //   console.log('[Receive Main-process message]:', message)
+  //   if (oDiv) {
+  //     oDiv.innerHTML = `
+  //     <code>
+  //          KeepKey State: ${message}
+  //       <br/>
+  //       <br/>
+  //     </code>
+  //     `;
+  //   }
+  // })
+
   ipcRenderer.on('main-process-message', (_event, message) => {
     const oDiv = document.getElementById('nodejs-api');
     console.log('[Receive Main-process message]:', message)
     if (oDiv) {
       oDiv.innerHTML = `
       <code>
-           KeepKey Events: 
+           KeepKey Status: ${message}
         <br/>
         <br/>
       </code>
