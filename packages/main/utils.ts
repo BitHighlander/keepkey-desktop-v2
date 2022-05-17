@@ -1,5 +1,5 @@
 import { ipcMain } from "electron";
-import { createWindow, windows } from "./main";
+import { createWindow, windows } from "./index";
 import log from 'electron-log'
 
 export const openSignTxWindow = async (signArgs: any) => {
@@ -7,6 +7,7 @@ export const openSignTxWindow = async (signArgs: any) => {
     let windowWasPreviouslyOpen = false
 
     if (!windows.mainWindow || windows.mainWindow.isDestroyed()) {
+        // @ts-ignore
         if (!await createWindow()) return
     } else {
         windows.mainWindow.focus()

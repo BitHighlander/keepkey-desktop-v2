@@ -2,10 +2,9 @@ import os from 'os'
 import { join } from 'path'
 import { app, BrowserWindow } from 'electron'
 import { bridgeRunning, keepkey, queueIpcEvent, start_bridge, stop_bridge } from './bridge'
-
-// import './samples/serialport'
-// import './samples/sqlite3'
-// import './samples/esmodules'
+import AutoLaunch from 'auto-launch'
+import { Settings } from './settings'
+export const settings = new Settings()
 
 export let appStartCalled = false
 export let shouldShowWindow = false;
@@ -30,7 +29,15 @@ export const windows: {
 
 let win: BrowserWindow | null = null
 
+export const kkAutoLauncher = new AutoLaunch({
+  name: 'KeepKey Desktop'
+})
+
 export async function createWindow() {
+
+  console.log(settings)
+  if (!bridgeRunning && settings.shouldAutoStartBridge) start_bridge(settings.bridgeApiPort)
+
   win = new BrowserWindow({
     title: 'Main window',
     width: 900,

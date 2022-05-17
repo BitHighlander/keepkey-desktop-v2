@@ -73,7 +73,7 @@ export const start_bridge = (port?: number) => new Promise<void>(async (resolve,
 
         // send paired apps when requested
         ipcMain.on('@bridge/paired-apps', (event) => {
-            db.find({ type: 'service' }, (err, docs) => {
+            db.find({ type: 'service' }, (err: any, docs: any) => {
                 queueIpcEvent('@bridge/paired-apps', docs)
             })
         })

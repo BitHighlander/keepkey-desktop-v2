@@ -1,7 +1,7 @@
 import { ipcMain } from "electron";
 import { bridgeRunning, server, start_bridge, stop_bridge } from "./bridge";
 import { db } from "./db";
-import { kkAutoLauncher } from "./main";
+import { kkAutoLauncher } from "./index";
 import { AddressInfo } from "net";
 import log from 'electron-log'
 import { setAllowPreRelease } from "./updater";
@@ -40,7 +40,7 @@ export class Settings {
 
 
     loadSettingsFromDb = () => new Promise<Settings>((resolve, reject) => {
-        db.findOne({ type: 'settings' }, async (err, doc) => {
+        db.findOne({ type: 'settings' }, async (err:any, doc:any) => {
             if (!doc) {
                 resolve(this)
                 return this.syncSettingsWithDB()
@@ -62,7 +62,7 @@ export class Settings {
 
 
     private syncSettingsWithDB = () => new Promise<void>((resolve, reject) => {
-        db.findOne({ type: 'settings' }, (err, doc) => {
+        db.findOne({ type: 'settings' }, (err:any, doc:any) => {
             if (!doc) return db.insert({
                 type: 'settings', settings: {
                     shouldAutoLunch: this.shouldAutoLunch,

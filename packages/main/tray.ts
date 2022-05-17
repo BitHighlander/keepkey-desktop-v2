@@ -3,7 +3,7 @@ import log from 'electron-log'
 import path from 'path'
 import { bridgeRunning, start_bridge, stop_bridge } from './bridge'
 import { assetsDirectory } from './constants'
-import { createWindow, windows } from './main'
+import { createWindow, windows } from './index'
 
 export let tray: Tray
 const lightDark = nativeTheme.shouldUseDarkColors ? 'dark' : 'light'
@@ -91,7 +91,7 @@ export const createTray = () => {
     tray.setContextMenu(contextMenu)
 }
 
-export const updateMenu = status => {
+export const updateMenu = (status: number) => {
     let icon = 'unknown'
     // eslint-disable-next-line default-case
     switch (status) {
