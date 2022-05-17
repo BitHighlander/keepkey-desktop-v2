@@ -1,5 +1,5 @@
 import log from 'electron-log';
-import { windows } from '../../main';
+import { windows } from '../../index';
 import { Body, Controller, Get, Post, Route, Tags, Security, Response } from 'tsoa';
 import { keepkey } from '..';
 import { Read, Error, WriteBody, Write } from '../types';

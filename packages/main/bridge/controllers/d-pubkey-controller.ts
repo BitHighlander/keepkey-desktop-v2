@@ -1,5 +1,5 @@
 import { app, ipcMain } from 'electron';
-import { createWindow, windows } from '../../main';
+import { createWindow, windows } from '../../index';
 import { Body, Controller, Get, Post, Security, Route, Tags, Response } from 'tsoa';
 import { keepkey } from '../';
 import { GenericResponse, SignedTx, GetPublicKey, Error } from '../types';

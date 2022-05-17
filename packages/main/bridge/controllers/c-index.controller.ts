@@ -1,7 +1,7 @@
 import { ipcMain } from 'electron';
 import { uniqueId } from 'lodash';
 import { db } from '../../db';
-import { createWindow, windows } from '../../main';
+import { createWindow, windows } from '../../index';
 import {shared, userType} from '../../shared';
 
 import {Body, Controller, Get, Post, Header, Route, Tags, Response, SuccessResponse, Security} from 'tsoa';
@@ -44,6 +44,7 @@ export class CIndexController extends Controller {
     public async pair(@Body() body: PairBody, @Header('authorization') serviceKey: string): Promise<PairResponse> {
         return new Promise<PairResponse>(async (resolve, reject) => {
             if (!windows.mainWindow || windows.mainWindow.isDestroyed()) {
+                // @ts-ignore
                 if (!await createWindow()) {
                     this.setStatus(500)
                     return resolve({ success: false, reason: 'Window not open' })
@@ -56,7 +57,7 @@ export class CIndexController extends Controller {
             }
 
             const isAlreadyPaired = await new Promise<boolean>((innerResolve, _reject) => {
-                db.findOne({ type: 'service', serviceName: body.serviceName, serviceKey }, (err, doc) => {
+                db.findOne({ type: 'service', serviceName: body.serviceName, serviceKey }, (err: any, doc: any) => {
                     if (!doc) innerResolve(false)
                     innerResolve(true)
                 })
