@@ -12,11 +12,27 @@
     "build": "node scripts/build.mjs && electron-builder"
   },
   "dependencies": {
+    "@keepkey/keepkey-hardware-controller": "^0.0.16",
+    "@shapeshiftoss/hdwallet-core": "^1.22.0",
+    "@shapeshiftoss/hdwallet-keepkey": "^1.22.0",
+    "@shapeshiftoss/hdwallet-keepkey-nodewebusb": "^1.22.0",
+    "body-parser": "^1.20.0",
+    "cors": "^2.8.5",
+    "electron-is-dev": "^2.0.0",
+    "electron-log": "^4.4.7",
+    "electron-updater": "^5.0.1",
+    "express": "^4.18.1",
+    "lodash": "^4.17.21",
     "serialport": "^10.4.0",
-    "sqlite3": "^5.0.8"
+    "sqlite3": "^5.0.8",
+    "swagger-ui-express": "^4.4.0",
+    "tsoa": "^4.0.0",
+    "wait-promise": "^0.4.1"
   },
   "devDependencies": {
+    "@types/lodash": "^4.14.182",
     "@types/sqlite3": "^3.1.8",
+    "@types/wait-promise": "^0.4.0",
     "electron": "^18.2.3",
     "electron-builder": "^23.0.3",
     "execa": "^6.1.0",

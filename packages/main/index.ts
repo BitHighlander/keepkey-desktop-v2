@@ -1,6 +1,8 @@
 import os from 'os'
 import { join } from 'path'
 import { app, BrowserWindow } from 'electron'
+import { bridgeRunning, keepkey, queueIpcEvent, start_bridge, stop_bridge } from './bridge'
+
 // import './samples/serialport'
 // import './samples/sqlite3'
 // import './samples/esmodules'
@@ -15,9 +17,17 @@ if (!app.requestSingleInstanceLock()) {
   process.exit(0)
 }
 
+export const windows: {
+  mainWindow: undefined | BrowserWindow,
+  splash: undefined | BrowserWindow
+} = {
+  mainWindow: undefined,
+  splash: undefined
+}
+
 let win: BrowserWindow | null = null
 
-async function createWindow() {
+export async function createWindow() {
   win = new BrowserWindow({
     title: 'Main window',
     width: 900,
