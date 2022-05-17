@@ -14,8 +14,8 @@ import { updateMenu } from '../tray'
 import { db } from '../db'
 import { RegisterRoutes } from './routes/routes'
 import { KeepKeyHDWallet, TransportDelegate } from '@shapeshiftoss/hdwallet-keepkey'
-import { appStartCalled, windows } from '../main'
-import { updateConfig } from "keepkey-config";
+import { appStartCalled, windows } from '../index'
+// import { updateConfig } from "keepkey-config";
 import { shared } from "../shared";
 import { KeepKey } from '@keepkey/keepkey-hardware-controller'
 import { IpcQueueItem } from './types'

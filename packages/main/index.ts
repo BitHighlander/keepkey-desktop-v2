@@ -7,6 +7,9 @@ import { bridgeRunning, keepkey, queueIpcEvent, start_bridge, stop_bridge } from
 // import './samples/sqlite3'
 // import './samples/esmodules'
 
+export let appStartCalled = false
+export let shouldShowWindow = false;
+
 const isWin7 = os.release().startsWith('6.1')
 if (isWin7) app.disableHardwareAcceleration()
 

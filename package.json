@@ -9,7 +9,10 @@
   },
   "scripts": {
     "dev": "node scripts/watch.mjs",
-    "build": "node scripts/build.mjs && electron-builder"
+    "build": "node scripts/build.mjs && electron-builder",
+    "build:bridge": "yarn build:routes && yarn build:swagger",
+    "build:routes": "tsoa routes --configuration packages/main/tsoa.json",
+    "build:swagger": "tsoa swagger --configuration packages/main/tsoa.json"
   },
   "dependencies": {
     "@keepkey/keepkey-hardware-controller": "^0.0.16",
