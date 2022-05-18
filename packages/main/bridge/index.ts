@@ -283,6 +283,8 @@ export const stop_bridge = () => new Promise<void>((resolve, reject) => {
 })
 
 export const queueIpcEvent = (eventName: string, args: any) => {
+    // @ts-ignore
+    // return windows.mainWindow.webContents.send(eventName, args)
     if (!appStartCalled) {
         log.info('ipcEventQueued: ' + eventName)
         return ipcQueue.push({ eventName, args })

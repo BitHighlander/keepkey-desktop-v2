@@ -15,7 +15,7 @@
     "build:swagger": "tsoa swagger --configuration packages/main/tsoa.json"
   },
   "dependencies": {
-    "@keepkey/keepkey-hardware-controller": "^0.0.16",
+    "@keepkey/keepkey-hardware-controller": "^0.0.17",
     "@shapeshiftoss/hdwallet-core": "^1.22.0",
     "@shapeshiftoss/hdwallet-keepkey": "^1.22.0",
     "@shapeshiftoss/hdwallet-keepkey-nodewebusb": "^1.22.0",

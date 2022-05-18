@@ -27,18 +27,18 @@ export const windows: {
   splash: undefined
 }
 
-let win: BrowserWindow | null = null
+// let win: BrowserWindow | null = null
 
 export const kkAutoLauncher = new AutoLaunch({
   name: 'KeepKey Desktop'
 })
 
 export async function createWindow() {
-
+  appStartCalled = true
   console.log(settings)
   if (!bridgeRunning && settings.shouldAutoStartBridge) start_bridge(settings.bridgeApiPort)
 
-  win = new BrowserWindow({
+  windows.mainWindow = new BrowserWindow({
     title: 'Main window',
     width: 900,
     height: 700,
@@ -52,13 +52,13 @@ export async function createWindow() {
     // https://github.com/electron/electron/issues/20357
     backgroundColor: '#00000001',
   })
-  win.webContents.openDevTools()
+  windows.mainWindow.webContents.openDevTools()
 
   // Communicate with the Renderer-process.
-  win.webContents.on('ipc-message', (_, channel, ...args) => {
+  windows.mainWindow.webContents.on('ipc-message', (_, channel, ...args) => {
     switch (channel) {
       case 'app.getPath':
-        win?.webContents.send('app.getPath', app.getPath(args[0]));
+        windows.mainWindow?.webContents.send('app.getPath', app.getPath(args[0]));
         break;
       default:
         break;
@@ -66,38 +66,39 @@ export async function createWindow() {
   })
 
   // Test active push message to Renderer-process.
-  win.webContents.on('did-finish-load', () => {
-    win?.webContents.send('main-process-message', (new Date).toLocaleString())
+  windows.mainWindow.webContents.on('did-finish-load', () => {
+    windows.mainWindow?.webContents.send('main-process-message', (new Date).toLocaleString())
 
-    win?.webContents.send('main-process-message', ("TESING BRO"))
+    windows.mainWindow?.webContents.send('main-process-message', ("TESING BRO"))
 
   })
 
   if (app.isPackaged) {
-    win.loadFile(join(__dirname, '../renderer/index.html'))
+    windows.mainWindow.loadFile(join(__dirname, '../renderer/index.html'))
   } else {
     // 🚧 Use ['ENV_NAME'] avoid vite:define plugin
     const url = `http://${process.env['VITE_DEV_SERVER_HOST']}:${process.env['VITE_DEV_SERVER_PORT']}`
 
-    win.loadURL(url)
-    // win.webContents.openDevTools({ mode: 'undocked' })
+    windows.mainWindow.loadURL(url)
+    // windows.mainWindow.webContents.openDevTools({ mode: 'undocked' })
   }
 }
 
 app.whenReady().then(createWindow)
 
 app.on('window-all-closed', () => {
-  win = null
+  // @ts-ignore
+  windows.mainWindow = null
   if (process.platform !== 'darwin') {
     app.quit()
   }
 })
 
 app.on('second-instance', () => {
-  if (win) {
+  if (windows.mainWindow) {
     // Focus on the main window if the user tried to open another
-    if (win.isMinimized()) win.restore()
-    win.focus()
+    if (windows.mainWindow.isMinimized()) windows.mainWindow.restore()
+    windows.mainWindow.focus()
   }
 })
 
